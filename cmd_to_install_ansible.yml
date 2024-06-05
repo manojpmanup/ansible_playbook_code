@@ -1,0 +1,24 @@
+---
+
+- name: ansible_configuration
+  hosts: all
+  become: true
+  tasks:
+    - name: system_update
+      apt: 
+        update_cache: yes
+
+    - name: Ensure software-properties-common is installed
+      apt: 
+         name: software-properties-common
+         state: present
+
+    - name: Add Ansible PPA
+      apt_repository:
+         repo: ppa:ansible/ansible
+         state: present
+
+    - name: install_ansible
+      apt:
+        name: ansible
+        state: present
